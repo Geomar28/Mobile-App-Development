@@ -12,7 +12,8 @@
 	<!-- Include the jQuery Mobile library -->
 	<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 </head>
-
+<?php session_start();
+?>
 <script type="text/javascript">
 
 $(document).ready(function() {
@@ -102,12 +103,43 @@ $(document).ready(function() {
 	</div>
 	
 	<div id="myProfile" data-role="page">
-		<div data-role="header"> My Profile </div>
-			<h3>This  works 
-			<?php session_start();
-			echo $_SESSION['user_session']; ?></h3>
-			
-		<div data-role="footer"> Copyright 2016 </div>
+		<div data-role="header"> 
+			<form>
+    			<input id="filter-for-listview" data-type="search" placeholder="Search book title or user">
+			</form>
+		</div>
+		
+		<div id="profileImage"><img src="userImages/1.jpg" width="20%" heigth="20%"></div>
+		<div id="profileName">Hi, my name is Bianca</div>
+		<div id="profileTags">Engineering | Chef | Gamer</div>
+		<div id="profileDescription">My favorite books are Science fiction</div>
+		<div id="profileLocation">Dublin City, ireland</div>
+		
+		<div data-role="navbar">
+        	<ul>
+				<li><a href="#one" data-theme="a" data-ajax="false">MY COLLECTION</a></li>
+      			<li><a href="#two" data-theme="a" data-ajax="false">FOLLOWERS</a></li>
+          		<li><a href="#two" data-theme="a" data-ajax="false">FOLLOWING</a></li>
+        	</ul>
+    	</div>
+    	
+    	<div id="collection">
+			<img src="bookCovers/harryPotter.png" width="100" heigth="100">
+			<img src="bookCovers/harryPotter.png" width="100" heigth="100">
+			<img src="bookCovers/harryPotter.png" width="100" heigth="100">
+		</div>
+		
+    	<div>
+    	</div>
+		<div data-role="footer"> 
+			<div data-role="navbar">
+        			<ul>
+          				<li><a href="#one" data-theme="a" data-ajax="false"><img src="icons/home.png" width="30" height="30"></a></li>
+          				<li><a href="#two" data-theme="a" data-ajax="false"><img src="icons/activity.png" width="30" height="30"></a></li>
+          				<li><a href="#two" data-theme="a" data-ajax="false"><img src="icons/profile.png" width="30" height="30"></a></li>
+        			</ul>
+    		</div>
+		</div>
 	</div>	
 	
 	<div id="page3" date-role="page">
