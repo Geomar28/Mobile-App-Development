@@ -103,7 +103,7 @@ $(document).ready(function() {
 	
 	<div id="myProfile" data-role="page">
 		<div data-role="header"> My Profile </div>
-			<h3>This shit works 
+			<h3>This  works 
 			<?php session_start();
 			echo $_SESSION['user_session']; ?></h3>
 			
