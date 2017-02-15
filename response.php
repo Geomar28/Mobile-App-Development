@@ -3,6 +3,33 @@
 include_once("config.php");
 session_start();
 
+if(isset($_POST["mode"]) && ($_POST["mode"]) == "settingsSubmit") 
+{	//check $_POST["content_txt"] is not empty
+	$userId=$_SESSION['user_session'];
+	//sanitize post value, PHP filter FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH Strip tags, encode special characters.
+	$fnameToSave = filter_var($_POST["fname_txt"],FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH); 
+	$lnameToSave = filter_var($_POST["lname_txt"],FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH); 
+	$descriptionToSave = filter_var($_POST["description_txt"],FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH); 
+	$locationToSave = filter_var($_POST["location_txt"],FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH); 
+	
+	// Insert sanitize string in record
+	//$insert_row = $mysqli->query("UPDATE users SET fname='test' WHERE id=52");
+	$insert_row = $mysqli->query("UPDATE users SET fname='".$fnameToSave."', lname='".$lnameToSave."', description='".$descriptionToSave."', location='".$locationToSave."' WHERE id='".$userId."' ");
+
+	if($insert_row)
+	{
+		 echo "ok";
+		  $mysqli=null;//close db connection using PDO
+
+	}else{
+		
+		//header('HTTP/1.1 500 '.mysql_error()); //display sql errors.. must not output sql errors in live mode.
+		header('HTTP/1.1 500 Looks like mysql error, could not insert record!');
+		exit();
+	}exit();
+
+}
+
 if(isset($_POST["email_txt"]) && strlen($_POST["email_txt"])>0) 
 {	//check $_POST["content_txt"] is not empty
 

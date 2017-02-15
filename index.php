@@ -16,6 +16,8 @@
 ?>
 <script type="text/javascript">
 
+//setTimeout(function(){ $("#logo").hide(); }, 1000);
+//setTimeout(function(){ $("#login").show(); }, 1000);
 $(document).ready(function() {
 
 	//##### send add record Ajax request to response.php #########
@@ -26,9 +28,6 @@ $(document).ready(function() {
 				alert("Please enter email and password!");
 				return false;
 			}
-			
-			//$("#FormSubmit").hide(); //hide submit button
-			//$("#LoadingImage").show(); //show loading image
 			
 		 	var emailData = $("#emailText").val();
 		 	var passwordData = $("#passwordText").val();
@@ -46,8 +45,33 @@ $(document).ready(function() {
 
 			},
 			error:function (xhr, ajaxOptions, thrownError){
-				//$("#FormSubmit").show(); //show submit button
-				//$("#LoadingImage").hide(); //hide loading image
+				alert(thrownError);
+			}
+			});
+	});
+//add the exitings data to the text fields
+	$("#settingsSubmit").click(function (e) {
+			e.preventDefault();
+			
+		 	var fnameData = $("#fnameText").val();
+		 	var lnameData = $("#lnameText").val();
+		 	var descriptionData = $("#descriptionText").val();
+		 	var locationData = $("#locationText").val();
+		 	var mode ="settingsSubmit";
+		 	
+			jQuery.ajax({
+			type: "POST", // HTTP method POST or GET
+			url: "response.php", //Where to make Ajax calls
+			dataType:"text", // Data type, HTML, json etc.
+			data: {fname_txt: fnameData, lname_txt: lnameData, description_txt: descriptionData, location_txt: locationData,_txt: locationData, mode: mode}, //Form variables
+			success:function(response){
+				$("#myProfile").append(response);
+				$("#emailText").val(''); //empty text field on successful
+				$("#FormSubmit").show(); //show submit button
+				window.location.replace("#myProfile");
+
+			},
+			error:function (xhr, ajaxOptions, thrownError){
 				alert(thrownError);
 			}
 			});
@@ -109,7 +133,9 @@ $(document).ready(function() {
 			</form>
 		</div>
 		
-		<div id="profileImage"><img src="userImages/1.jpg" width="20%" heigth="20%"></div>
+		<div id="profileImage"><img src="userImages/1.jpg" width="20%" heigth="20%">
+		<a href="#profileSettings" data-role="button">Settings</a>		
+		</div>
 		<div id="profileName">Hi, my name is Bianca</div>
 		<div id="profileTags">Engineering | Chef | Gamer</div>
 		<div id="profileDescription">My favorite books are Science fiction</div>
@@ -140,19 +166,18 @@ $(document).ready(function() {
         			</ul>
     		</div>
 		</div>
-	</div>	
-	
-	<div id="page3" date-role="page">
-		<form>
-    		<input id="filter-for-listview" data-type="search" placeholder="Type to search...">
-		</form>
-		
-		<ul data-role="listview" data-inset="true" data-filter="true" data-input="#filter-for-listview">
-    		<li><a href="#">test</a></li>
-    		<li><a href="#">Audi</a></li>
-    		<li><a href="#">BMW</a></li>
-    		<li><a href="#">Cadillac</a></li>
-    		<li><a href="#">Ferrari</a></li>
-		</ul>
 	</div>
+	
+	<div id="profileSettings" data-role="page">
+		<div data-role="header"> Settings </div>
+		
+		
+    		<input type="text" name="fname_txt" id="fnameText" placeholder="Name" value="" data-clear-btn="true">
+    		<input type="text" name="lname_txt" id="lnameText" placeholder="Surname" value="" data-clear-btn="true">
+    		<input type="text" name="description_txt" id="descriptionText" placeholder="Description" value="" data-clear-btn="true">
+    		<input type="text" name="location_txt" id="locationText" placeholder="Location" value="" data-clear-btn="true">
+			<a href="#login" id="settingsSubmit" data-transiction="slide" class="ui-btn"> Edit </a>    		
+
+		
+	</div>	
 </body>
