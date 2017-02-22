@@ -24,6 +24,7 @@ if(isset($_POST["mode"]) && ($_POST["mode"]) == "settingsSubmit")
 	if($insert_row)
 	{
 		 echo "ok";
+		 profileInfo();
 		  $mysqli=null;//close db connection using PDO
 
 	}else{
