@@ -3,9 +3,14 @@
 include_once("config.php");
 session_start();
 
+if(isset($_SESSION['user_session']))
+{
+	$userId=$_SESSION['user_session'];
+}
+
 if(isset($_POST["mode"]) && ($_POST["mode"]) == "settingsSubmit") 
 {	//check $_POST["content_txt"] is not empty
-	$userId=$_SESSION['user_session'];
+	
 	//sanitize post value, PHP filter FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH Strip tags, encode special characters.
 	$fnameToSave = filter_var($_POST["fname_txt"],FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH); 
 	$lnameToSave = filter_var($_POST["lname_txt"],FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH); 
@@ -19,6 +24,7 @@ if(isset($_POST["mode"]) && ($_POST["mode"]) == "settingsSubmit")
 	if($insert_row)
 	{
 		 echo "ok";
+		 profileInfo();
 		  $mysqli=null;//close db connection using PDO
 
 	}else{
@@ -80,5 +86,8 @@ else
 	//Output error
 	header('HTTP/1.1 500 Error occurred, Could not process request!');
     exit();
+}
+
+function profileInfo(){
 }
 ?>
