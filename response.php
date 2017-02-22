@@ -86,4 +86,7 @@ else
 	header('HTTP/1.1 500 Error occurred, Could not process request!');
     exit();
 }
+
+function profileInfo(){
+}
 ?>
